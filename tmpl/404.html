@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>판사님, 이 사이트는 고양이가 먹었습니다.</title>
+
+    <link rel="stylesheet" href="/static/bootstrap.4.2.1.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/custom.css">
+    <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Noto+Serif+KR:500" rel="stylesheet">
+</head>
+<body>
+
+<div class="container align-content-center notFound">
+    <a href="/" class="nav-link back-home"><i class="fas fa-home"></i> 홈으로 가기</a>
+    <h1>?_?</h1>
+    <p>없거나 사라진 페이지 - {{.Path}} <br> 불편을 드려서 죄송해요. <br>
+        <a class="btn btn-outline-secondary cat-link" href="https://www.google.com/search?q=cute+cat+pictures">
+            귀여운 고양이 보고 가실래요?</a>
+    </p>
+</div>
+
+<blockquote class="blockquote speech fixed-bottom">
+    <p class="mb-0"><i class="fas fa-quote-left"></i> {{ .Sentence }}</p>
+    <footer class="blockquote-footer">{{ .Author }}</footer>
+</blockquote>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js"
+        integrity="sha384-EIHISlAOj4zgYieurP0SdoiBYfGJKkgWedPHH4jCzpCXLmzVsw1ouK59MuUtP4a1"
+        crossorigin="anonymous"></script>
+<script>
+    console.log("대사를 추가하고 싶으신가요? 이것에 대해 이야기하는 스레드를 세우세요.");
+    console.log("진짜 있는 페이지였는데 사라졌나요? 신고나 자기삭제로 사라졌을 수 있어요. 고양이 사진으로 화를 삭히세요.")
+</script>
+</body>
+</html>

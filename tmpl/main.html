@@ -1,0 +1,14 @@
+{{ define "content"}}
+
+    <h1>Welcome to OnionPi</h1>
+
+    <form method="post" action="/new/post">
+        <label for=""></label><textarea class="form-control" name="content" id="" cols="30" rows="5" placeholder="Write something..."></textarea>
+        <button class="btn btn-primary submit">Submit</button>
+    </form>
+
+    {{ if .HasSession }}RE-VISITOR{{else}}NEWBIE's here!{{end}}
+
+    {{ template "posts" .}}
+
+{{end}}
