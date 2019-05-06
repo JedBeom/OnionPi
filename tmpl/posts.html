@@ -5,8 +5,12 @@
     <h2>지금 다른 사람들은...</h2>
     {{ range .Posts }}
         <div>
-        <p>{{if (ge .TotalVote 1)}}+{{.TotalVote}}{{else}}{{.TotalVote}}{{end}} {{ .Content }}</p>
-       <button class="btn btn-secondary" onclick="vote({{.ID}}, true)">&#9650</button> <button class="btn btn-secondary" onclick="vote({{.ID}}, false);" name="{{.ID}}">&#9660</button>
+            <p id="vote_value_{{.ID}}">{{if (ge .TotalVote 1)}}+{{.TotalVote}}{{else}}{{.TotalVote}}{{end}}</p>
+            <p> {{.Content}}</p>
+            <button id="vote_up_{{.ID}}" class="btn btn-secondary" onclick="vote({{.ID}}, true)">&#9650</button>
+            <button id="vote_down_{{.ID}}" class="btn btn-secondary" onclick="vote({{.ID}}, false);" name="{{.ID}}">
+                &#9660
+            </button>
         </div>
     {{ end }}
 

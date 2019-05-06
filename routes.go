@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"encoding/json"
 	"html/template"
 	"log"
 	"net/http"
@@ -92,8 +92,6 @@ func index() http.HandlerFunc {
 			log.Println(err)
 		}
 
-		fmt.Println(models.GetVotesByPostID(db, 1))
-
 	}
 
 }
@@ -101,33 +99,49 @@ func index() http.HandlerFunc {
 func vote() http.HandlerFunc {
 
 	return func(w http.ResponseWriter, r *http.Request) {
-		idStr := chi.URLParam(r, "postID")
-		id, _ := strconv.Atoi(idStr)
-		p, err := models.GetPostByID(db, id)
+		id, err := strconv.Atoi(chi.URLParam(r, "postID"))
 		if err != nil {
+
 			log.Println(err)
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+
+		}
+
+		sess := getOrCreateCookie(db, w, r)
+
+		voting := chi.URLParam(r, "voting")
+		var voted int
+		if voting == "+" {
+			voted, err = models.VotePost(db, id, sess, true)
+		} else if voting == "-" {
+			voted, err = models.VotePost(db, id, sess, false)
+		} else {
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
 
-		voting := chi.URLParam(r, "voting")
-		if voting == "+" {
-			err = p.VoteUp(db)
-			if err != nil {
-				log.Println(err)
-				w.WriteHeader(http.StatusInternalServerError)
-				return
-			}
-		} else if voting == "-" {
-			err = p.VoteDown(db)
-			if err != nil {
-				log.Println(err)
-				w.WriteHeader(http.StatusInternalServerError)
-				return
-			}
-		} else {
+		up, down, err := models.GetVotesByPostID(db, id)
+		var updatedVote int
+		if err == nil {
+			updatedVote = up - down
+		}
+
+		data := struct {
+			TotalVote int `json:"total_vote"`
+			UserVote  int `json:"user_vote"`
+		}{
+			updatedVote,
+			voted,
+		}
+
+		j, err := json.Marshal(data)
+		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			return
+		} else {
+			_, _ = w.Write(j)
+			w.WriteHeader(http.StatusOK)
 		}
 
 	}

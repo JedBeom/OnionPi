@@ -14,18 +14,19 @@ type Post struct {
 	CreatedAt time.Time `sql:"default:now()"`
 	UpdatedAt time.Time
 
-	TotalVote int `sql:"-"` // go-pg ignores this field.
+	WhatUserVoted int `sql:"-"` // go-pg ignores this field.
+	TotalVote     int `sql:"-"` // go-pg ignores this field.
 }
 
 type Vote struct {
 	ID int
 
-	SessionID int `sql:",pk"`
+	SessionID int `sql:",pk",sql:"unique:aa"`
 	Session   *Session
-	PostID    int `sql:",pk"`
+	PostID    int `sql:",pk",sql:"unique:aa"`
 	Post      *Post
 
-	IsVoteUp bool
+	IsVoteUp bool `sql:",notnull"`
 
 	CreatedAt time.Time `sql:"default:now()"`
 	UpdatedAt time.Time

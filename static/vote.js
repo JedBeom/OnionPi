@@ -1,10 +1,12 @@
-/*
-function vote(id, up) {
+function vote(id, is_vote_up) {
     let url = "";
-    if (up) {
+    let add = 0;
+    if (is_vote_up) {
        url = "/vote/"+id+"/+";
+        add = 1
     } else {
-       url = "/vote/"+id+"/+";
+        url = "/vote/" + id + "/-";
+        add = -1
     }
 
     $.ajax({
@@ -12,15 +14,28 @@ function vote(id, up) {
         url: url,
         dataType: "json",
 
-        success: function(response) {
+        success: function (data) {
+
+
+            let value = $("#vote_value_" + id);
+            if (data.total_vote > 0) {
+                data.total_vote = "+" + String(data.total_vote)
+            }
+            value.text(data.total_vote);
+
+            if (data.user_vote === 0) {
+                $("#vote_up_" + id).removeClass("btn-success").addClass("btn-secondary");
+                $("#vote_down_" + id).removeClass("btn-success").addClass("btn-secondary");
+            } else if (data.user_vote === 1) {
+                $("#vote_up_" + id).removeClass("btn-secondary").addClass("btn-success");
+                $("#vote_down_" + id).removeClass("btn-success").addClass("btn-secondary");
+            } else if (data.user_vote === 2) {
+                $("#vote_up_" + id).removeClass("btn-success").addClass("btn-secondary");
+                $("#vote_down_" + id).removeClass("btn-secondary").addClass("btn-success");
+            }
 
         }
 
-    }
-
+    })
 }
- */
 
-function vote_up() {
-    alert(this.Attr("name"))
-}

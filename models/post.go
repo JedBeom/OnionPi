@@ -7,18 +7,6 @@ func (p *Post) Create(db *pg.DB) (err error) {
 	return
 }
 
-func (p *Post) VoteUp(db *pg.DB) (err error) {
-	//p.UpVote += 1
-	err = db.Update(p)
-	return
-}
-
-func (p *Post) VoteDown(db *pg.DB) (err error) {
-	//p.DownVote += 1
-	err = db.Update(p)
-	return
-}
-
 func GetPostByID(db *pg.DB, id int) (p Post, err error) {
 	p.ID = id
 	err = db.Select(&p)
