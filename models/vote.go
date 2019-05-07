@@ -92,3 +92,16 @@ func checkIfVoted(db *pg.DB, postID int, sess *Session) (isVoteUp bool, err erro
 
 	return
 }
+
+func GetWhatUserVotedFromPosts(db *pg.DB, ps *[]Post, sess *Session) {
+	for i := range *ps {
+		isVoteUp, err := checkIfVoted(db, (*ps)[i].ID, sess)
+		if err != nil {
+			(*ps)[i].WhatUserVoted = 0
+		} else if isVoteUp {
+			(*ps)[i].WhatUserVoted = 1
+		} else {
+			(*ps)[i].WhatUserVoted = 2
+		}
+	}
+}

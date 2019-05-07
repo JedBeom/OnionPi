@@ -4,13 +4,30 @@
 
     <h2>지금 다른 사람들은...</h2>
     {{ range .Posts }}
-        <div>
-            <p id="vote_value_{{.ID}}">{{if (ge .TotalVote 1)}}+{{.TotalVote}}{{else}}{{.TotalVote}}{{end}}</p>
+        <div class="post">
+            {{ if eq .WhatUserVoted 0 }}
+                <button id="vote_up_{{.ID}}" class="btn btn-secondary" onclick="vote({{.ID}}, true)">&#9650</button>
+                <p id="vote_value_{{.ID}}"
+                   class="vote_value">{{if (ge .TotalVote 1)}}+{{.TotalVote}}{{else}}{{.TotalVote}}{{end}}</p>
+                <button id="vote_down_{{.ID}}" class="btn btn-secondary" onclick="vote({{.ID}}, false);" name="{{.ID}}">
+                    &#9660
+                </button>
+            {{ else if eq .WhatUserVoted 1 }}
+                <button id="vote_up_{{.ID}}" class="btn btn-success" onclick="vote({{.ID}}, true)">&#9650</button>
+                <p id="vote_value_{{.ID}}"
+                   class="vote_value">{{if (ge .TotalVote 1)}}+{{.TotalVote}}{{else}}{{.TotalVote}}{{end}}</p>
+                <button id="vote_down_{{.ID}}" class="btn btn-secondary" onclick="vote({{.ID}}, false);" name="{{.ID}}">
+                    &#9660
+                </button>
+            {{ else if eq .WhatUserVoted 2 }}
+                <button id="vote_up_{{.ID}}" class="btn btn-secondary" onclick="vote({{.ID}}, true)">&#9650</button>
+                <p id="vote_value_{{.ID}}"
+                   class="vote_value">{{if (ge .TotalVote 1)}}+{{.TotalVote}}{{else}}{{.TotalVote}}{{end}}</p>
+                <button id="vote_down_{{.ID}}" class="btn btn-success" onclick="vote({{.ID}}, false);" name="{{.ID}}">
+                    &#9660
+                </button>
+            {{ end }}
             <p> {{.Content}}</p>
-            <button id="vote_up_{{.ID}}" class="btn btn-secondary" onclick="vote({{.ID}}, true)">&#9650</button>
-            <button id="vote_down_{{.ID}}" class="btn btn-secondary" onclick="vote({{.ID}}, false);" name="{{.ID}}">
-                &#9660
-            </button>
         </div>
     {{ end }}
 

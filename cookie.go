@@ -47,7 +47,6 @@ func getOrCreateCookie(db *pg.DB, w http.ResponseWriter, r *http.Request) *model
 		var err error
 		sess, err = models.NewSession(db, r)
 		if err != nil {
-			log.Println(err)
 			return sess
 		}
 

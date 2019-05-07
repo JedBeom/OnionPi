@@ -1,13 +1,15 @@
 {{ define "content"}}
 
-    <h1>Welcome to OnionPi</h1>
+    <h1>OnionPi에 오신 것을 환영합니다!</h1>
 
-    <form method="post" action="/new/post">
-        <label for=""></label><textarea class="form-control" name="content" id="" cols="30" rows="5" placeholder="Write something..."></textarea>
-        <button class="btn btn-primary submit">Submit</button>
-    </form>
+    <div id="alert" class="alert alert-danger" style="visibility: hidden;"></div>
 
-    {{ if .HasSession }}RE-VISITOR{{else}}NEWBIE's here!{{end}}
+    <label for="submit"></label><textarea class="form-control" name="content" id="submit" cols="30" rows="5"
+                                          placeholder="Write something..."></textarea>
+
+    <button id="submit_button" class="btn btn-primary submit">Submit
+        <div id="spinner" class="spinner-border spinner-border-sm" style="visibility: hidden;"></div>
+    </button>
 
     {{ template "posts" .}}
 

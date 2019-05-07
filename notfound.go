@@ -32,7 +32,7 @@ func loadSaying() (sayings []Saying, err error) {
 	return
 }
 
-func notFoundHandler() http.HandlerFunc {
+func ShowNotFound() http.HandlerFunc {
 
 	var (
 		once    sync.Once

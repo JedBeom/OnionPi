@@ -1,17 +1,19 @@
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function getCookie(name) {
+    let value = "; " + document.cookie;
+    let parts = value.split("; " + name + "=");
+    if (parts.length === 2) return parts.pop().split(";").shift();
+}
+
 function vote(id, is_vote_up) {
-    let url = "";
-    let add = 0;
-    if (is_vote_up) {
-       url = "/vote/"+id+"/+";
-        add = 1
-    } else {
-        url = "/vote/" + id + "/-";
-        add = -1
-    }
 
     $.ajax({
-        type: "GET",
-        url: url,
+        type: "POST",
+        url: "/vote",
+        data: {'id': id, 'is_vote_up': is_vote_up},
         dataType: "json",
 
         success: function (data) {
@@ -38,4 +40,37 @@ function vote(id, is_vote_up) {
 
     })
 }
+
+$("#submit_button").click(async function () {
+    let content = $("#submit").val();
+    $("#alert").css("visibility", "hidden");
+    $("#spinner").css("visibility", "visible");
+
+    await sleep(700);
+
+    $.ajax({
+        type: "POST",
+        url: "/submit",
+        data: {"content": content, "cookie": getCookie("_yayoiori")},
+        dataType: "text",
+        success: function (data) {
+            alert("글을 올렸습니다!");
+            $("#submit").val("");
+            $(".spinner-border").css("visibility", "hidden");
+            location.reload();
+        },
+
+        error: function (req, status, err) {
+            if (req.responseText === "") {
+                req.responseText = "오류가 발생했습니다!"
+            }
+            $("#alert").css("visibility", "visible").text(req.responseText);
+        },
+    });
+
+    $(".spinner-border").css("visibility", "hidden");
+
+});
+
+
 

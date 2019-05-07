@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func staticHandler(notFound http.HandlerFunc) http.HandlerFunc {
+func ServeStatic(notFound http.HandlerFunc) http.HandlerFunc {
 
 	fileServer := http.FileServer(http.Dir("static"))
 	return func(w http.ResponseWriter, r *http.Request) {

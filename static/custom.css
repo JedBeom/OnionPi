@@ -105,4 +105,13 @@ body {
 * {
     word-break: keep-all;
     word-break-cjk: keep-all;
+    font-family: 'Noto Sans KR', 'Noto Sans CJK KR', sans-serif;
+}
+
+.btn-secondary, .btn-success, p {
+    display: inline;
+}
+
+.post {
+    margin-bottom: 1rem;
 }
