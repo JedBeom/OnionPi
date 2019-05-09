@@ -1,16 +1,19 @@
 {{ define "content"}}
 
-    <h1>OnionPi에 오신 것을 환영합니다!</h1>
+    <div class="jumbotron">
+        <h1>Give us your feedback!</h1>
 
     <div id="alert" class="alert alert-danger" style="visibility: hidden;"></div>
 
     <label for="submit"></label><textarea class="form-control" name="content" id="submit" cols="30" rows="5"
-                                          placeholder="Write something..."></textarea>
+                                          placeholder="불편한 점이 무엇인가요?"></textarea>
 
     <button id="submit_button" class="btn btn-primary submit">Submit
         <div id="spinner" class="spinner-border spinner-border-sm" style="visibility: hidden;"></div>
     </button>
 
-    {{ template "posts" .}}
+    </div>
+
+    {{ template "li" . }}
 
 {{end}}

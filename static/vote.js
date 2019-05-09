@@ -26,14 +26,11 @@ function vote(id, is_vote_up) {
             value.text(data.total_vote);
 
             if (data.user_vote === 0) {
-                $("#vote_up_" + id).removeClass("btn-success").addClass("btn-secondary");
-                $("#vote_down_" + id).removeClass("btn-success").addClass("btn-secondary");
+                $("#post-" + id).removeClass("table-success table-danger")
             } else if (data.user_vote === 1) {
-                $("#vote_up_" + id).removeClass("btn-secondary").addClass("btn-success");
-                $("#vote_down_" + id).removeClass("btn-success").addClass("btn-secondary");
+                $("#post-" + id).removeClass("table-danger").addClass("table-success");
             } else if (data.user_vote === 2) {
-                $("#vote_up_" + id).removeClass("btn-success").addClass("btn-secondary");
-                $("#vote_down_" + id).removeClass("btn-secondary").addClass("btn-success");
+                $("#post-" + id).removeClass("table-success").addClass("table-danger");
             }
 
         }
@@ -46,7 +43,14 @@ $("#submit_button").click(async function () {
     $("#alert").css("visibility", "hidden");
     $("#spinner").css("visibility", "visible");
 
-    await sleep(700);
+    await sleep(500);
+
+    content = content.trim();
+    if (content === "") {
+        $("#alert").css("visibility", "visible").text("내용이 없습니다.");
+        $(".spinner-border").css("visibility", "hidden");
+        return
+    }
 
     $.ajax({
         type: "POST",

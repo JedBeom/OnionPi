@@ -17,7 +17,7 @@ func ShowMain() http.HandlerFunc {
 
 	return func(w http.ResponseWriter, r *http.Request) {
 		init.Do(func() {
-			t = loadHTML("base", "main", "posts")
+			t = loadHTML("base", "main", "li")
 		})
 		sess := getOrCreateCookie(db, w, r)
 

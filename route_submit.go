@@ -20,7 +20,13 @@ func SubmitPost() http.HandlerFunc {
 		content := r.Form.Get("content")
 		if len(strings.Fields(content)) == 0 {
 			w.WriteHeader(http.StatusBadRequest)
-			_, _ = w.Write([]byte("내용이 없습니다"))
+			_, _ = w.Write([]byte("내용이 없습니다."))
+			return
+		}
+
+		if _, err := models.GetPostByContent(db, content); err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			_, _ = w.Write([]byte("중복된 내용입니다."))
 			return
 		}
 

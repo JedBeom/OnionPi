@@ -1,0 +1,28 @@
+{{ define "li" }}
+
+    <table class="table table-hover text-center">
+        <tbody>
+
+        {{ range .Posts }}
+            {{ if eq .WhatUserVoted 1 }}
+                <tr class="table-success" id="post-{{.ID}}">
+            {{ else if eq .WhatUserVoted 2 }}
+                <tr class="table-danger" id="post-{{.ID}}">
+            {{ else }}
+                <tr id="post-{{.ID}}">
+            {{ end }}
+            <td class="vote" onclick="vote({{.ID}}, true)">&#9650</td>
+            <td id="vote_value_{{.ID}}">{{if (ge .TotalVote 1)}}+{{.TotalVote}}{{else}}{{.TotalVote}}{{end}}</td>
+            <td class="vote" onclick="vote({{.ID}}, false)">&#9660</td>
+            <td>{{.Content}}</td>
+            </tr>
+        {{ end }}
+
+
+        </tbody>
+        <tfoot>
+        지금은 게시물 10개까지만 볼 수 있어요 :)
+        </tfoot>
+    </table>
+
+{{ end }}

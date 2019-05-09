@@ -115,3 +115,31 @@ body {
 .post {
     margin-bottom: 1rem;
 }
+
+h1 {
+    font-weight: 700;
+}
+
+.jumbotron {
+    margin-top: 1.5rem;
+    padding-top: 2rem;
+}
+
+h2 {
+    margin-top: 1.5rem;
+!important;
+    margin-bottom: 1.5rem;
+!important
+}
+
+.site-name {
+    font-family: 'Black Han Sans', sans-serif;
+}
+
+.vote {
+    cursor: pointer;
+    padding-left: 0.3rem;
+!important;
+    padding-right: 0.3rem;
+!important;
+}

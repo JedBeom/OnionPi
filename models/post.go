@@ -31,3 +31,8 @@ func GetPosts(db *pg.DB, sess *Session, limit int) (posts []Post, err error) {
 
 	return
 }
+
+func GetPostByContent(db *pg.DB, content string) (p Post, err error) {
+	err = db.Model(&p).Where("content = ?", content).First()
+	return
+}

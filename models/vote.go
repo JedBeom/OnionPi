@@ -23,8 +23,15 @@ func GetVotesByPostID(db *pg.DB, id int) (upVote int, downVote int, err error) {
 		Select(&result)
 
 	if len(result) == 2 {
-		upVote = result[0].Value
-		downVote = result[1].Value
+
+		if result[0].IsVoteUp {
+			upVote = result[0].Value
+			downVote = result[1].Value
+		} else {
+			downVote = result[0].Value
+			upVote = result[1].Value
+		}
+
 	} else if len(result) == 1 {
 
 		if result[0].IsVoteUp {
