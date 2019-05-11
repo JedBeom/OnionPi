@@ -143,3 +143,13 @@ h2 {
     padding-right: 0.3rem;
 !important;
 }
+
+.post-content {
+    width: 80%;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+
+.table td {
+    vertical-align: middle;
+}

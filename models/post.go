@@ -7,22 +7,24 @@ func (p *Post) Create(db *pg.DB) (err error) {
 	return
 }
 
+/*
 func GetPostByID(db *pg.DB, id int) (p Post, err error) {
 	p.ID = id
 	err = db.Select(&p)
 	return
 }
+*/
 
 func GetPosts(db *pg.DB, sess *Session, limit int) (posts []Post, err error) {
 	err = db.Model(&posts).Order("id DESC").Limit(limit).Select()
 
 	// Calculate TotalVote
 	for i := range posts {
-		a, b, err := GetVotesByPostID(db, posts[i].ID)
+		up, down, err := GetVotesByPostID(db, posts[i].ID)
 		if err != nil {
 			continue
 		}
-		posts[i].TotalVote = a - b
+		posts[i].TotalVote = up - down
 	}
 
 	if sess != nil {

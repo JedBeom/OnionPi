@@ -14,7 +14,7 @@
             <td class="vote" onclick="vote({{.ID}}, true)">&#9650</td>
             <td id="vote_value_{{.ID}}">{{if (ge .TotalVote 1)}}+{{.TotalVote}}{{else}}{{.TotalVote}}{{end}}</td>
             <td class="vote" onclick="vote({{.ID}}, false)">&#9660</td>
-            <td>{{.Content}}</td>
+            <td class="post-content">{{.Content}}</td>
             </tr>
         {{ end }}
 

@@ -2,6 +2,7 @@ package models
 
 import (
 	"net/http"
+	"strings"
 
 	"github.com/go-pg/pg"
 
@@ -18,6 +19,11 @@ func NewSession(db *pg.DB, r *http.Request) (sess *Session, err error) {
 		sess.IP = r.RemoteAddr
 	} else {
 		sess.IP = r.Header.Get("X-Forwarded-For")
+	}
+
+	a := strings.Split(sess.IP, ":")
+	if len(a) == 2 {
+		sess.IP = a[0]
 	}
 
 	sess.UserAgent = r.UserAgent()

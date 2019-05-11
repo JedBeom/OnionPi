@@ -24,7 +24,7 @@ func SubmitPost() http.HandlerFunc {
 			return
 		}
 
-		if _, err := models.GetPostByContent(db, content); err != nil {
+		if _, err := models.GetPostByContent(db, content); err == nil {
 			w.WriteHeader(http.StatusBadRequest)
 			_, _ = w.Write([]byte("중복된 내용입니다."))
 			return

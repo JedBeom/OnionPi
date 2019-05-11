@@ -2,8 +2,8 @@ package main
 
 import (
 	"context"
-	"log"
 	"net/http"
+	"time"
 
 	"github.com/go-pg/pg"
 
@@ -18,20 +18,17 @@ func checkCookie(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		c, err := r.Cookie(SessionCookie)
 		if err != nil {
-			log.Println(err)
 			next.ServeHTTP(w, r)
 			return
 		}
 
 		if c.Value == "" {
-			log.Println("No value")
 			next.ServeHTTP(w, r)
 			return
 		}
 
 		sess, err := models.SessionByUUID(db, c.Value)
 		if err != nil {
-			log.Println(err)
 			next.ServeHTTP(w, r)
 			return
 		}
@@ -51,8 +48,9 @@ func getOrCreateCookie(db *pg.DB, w http.ResponseWriter, r *http.Request) *model
 		}
 
 		cookie := &http.Cookie{
-			Name:  SessionCookie,
-			Value: sess.UUID,
+			Name:    SessionCookie,
+			Value:   sess.UUID,
+			Expires: time.Now().AddDate(0, 6, 0),
 		}
 		http.SetCookie(w, cookie)
 	}
